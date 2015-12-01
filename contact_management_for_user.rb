@@ -27,6 +27,21 @@ class InterfaceUser
     print @database.list
     puts "give me the number of contact you want to update"
     to_be_edited_index = gets.chomp
+    puts @database[to_be_edited_index.to_i]
+    puts "what do you want to change? \n
+    AA forename \n
+    BB Surname \n
+    CC Telephone \n
+    DD Address"
+    user_choice_of_item = gets.chomp
+    update_contact_item_index =
+    0 if user_choice_of_item == "AA"
+    1 if user_choice_of_item =="BB"
+    2 if user_choice_of_item == "CC"
+    3 if user_choice_of_item == "DD"
+    puts "what do you want to change it to ?"
+    update_information = gets.chomp
+    @database[to_be_edited_index.to_i][update_contact_item_index] = update_information 
   end
   def delete_a_contact
     print @database.list

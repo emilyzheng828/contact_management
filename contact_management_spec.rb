@@ -25,4 +25,9 @@ describe "Contact_system" do
     expect(database.list).to eq("0 Emily, Zheng, 888888, White House\n"+
                                 "1 Kim, Strong, 111111, Dog House\n")
   end
+  it "should be albe to edit a contact with given index number and element" do
+    database = Database.new
+    to_be_updated_contact = Person.new("Emily","Zheng","666666","White House")
+    expect(database.update).to eq(["Emily","Zheng","666666","White House"])
+  end
 end 
