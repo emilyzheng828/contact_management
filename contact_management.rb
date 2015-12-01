@@ -1,14 +1,14 @@
 class Person
-attr_accessor :forename, :surname, :telephone, :address 
+  attr_accessor :forename, :surname, :telephone, :address 
   def initialize(forename, surname, telephone, address)
     @forename = forename
     @surname = surname
     @telephone = telephone
     @address = address
   end
- def to_a
- [forename, surname, telephone, address]
- end
+  def to_a
+    [forename, surname, telephone, address]
+  end
 end
 
 class Database
@@ -23,7 +23,19 @@ class Database
   def <<(a_new_person)
     @database << a_new_person.to_a
   end
-  
+  def join
+    a+b
+  end
+
+ 
+  def delete(to_be_deleted_index)
+     @database.delete_at(to_be_deleted_index.to_i)
+  end
+  def list
+    @database.map.with_index do |each_person,i|
+      i.to_s + " " + each_person.join(", ") + "\n"
+    end.join
+  end
 end
 
-    
+

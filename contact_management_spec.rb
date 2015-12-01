@@ -1,30 +1,4 @@
-class Person
-attr_accessor :forename, :surname, :telephone, :address 
-  def initialize(forename, surname, telephone, address)
-    @forename = forename
-    @surname = surname
-    @telephone = telephone
-    @address = address
-  end
- def to_a
- [forename, surname, telephone, address]
- end
-end
-
-class Database
-  def initialize 
-    @database = []
-    @database[0] = ["Emily","Zheng","888888","White House"] 
-    @database[1] = ["Kim","Strong","111111","Dog House"]
-  end
-  def [](index)
-    @database[index] 
-  end
-  def <<(a_new_person)
-    @database << a_new_person.to_a
-  end
-  
-end
+require_relative 'contact_management'
 
 describe "Contact_system" do
   it "each person should have forename, surname, telephone and address" do
@@ -44,6 +18,11 @@ describe "Contact_system" do
     database = Database.new
     a_new_person = Person.new("Ada","Wong","123456","Church")
     database << a_new_person
-  expect(database[2]).to eq(["Ada","Wong","123456","Church"])
-end
+    expect(database[2]).to eq(["Ada","Wong","123456","Church"])
+  end
+  it "should be about to show a list with index number" do
+    database = Database.new
+    expect(database.list).to eq("0 Emily, Zheng, 888888, White House\n"+
+                                "1 Kim, Strong, 111111, Dog House\n")
+  end
 end 
