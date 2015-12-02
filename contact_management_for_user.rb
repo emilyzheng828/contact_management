@@ -7,7 +7,6 @@ class InterfaceUser
   end
 
   def list_my_contacts
-    # do something to print @database 
     print @database.list
   end
 
