@@ -57,11 +57,16 @@ class InterfaceUser
     puts "There is no more contacts to be deleted, please choose other options".red
   end
 
+  def show_all_contact
+    print @database.show
+  end
+
   def run
     puts "A. List my contact".green
     puts "B. Create new contact".green
     puts "C. Edit a contact".green
     puts "D. Delete a contact".green
+    puts "E. Show all contacts".green
     while true 
       user_choice = gets.chomp
       if user_choice == "A"
@@ -75,6 +80,9 @@ class InterfaceUser
       end
       if user_choice == "D"
         delete_a_contact
+      end
+      if user_choice == "E"
+        show_all_contact
       end
       break if user_choice ==""
       puts "Choose from A B C D again, please".green

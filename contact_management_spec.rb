@@ -24,7 +24,7 @@ describe "Contact_system" do
     expect(database[2]).to eq(["Ada","Wong","123456","Church"])
   end
 
-  it "should be able to show a list with index number" do
+  it "should be able to show a list of full names only with index number" do
     expect(database.list).to eq("0 Emily, Zheng\n"+
                                 "1 Kim, Strong\n")
   end
@@ -35,5 +35,11 @@ describe "Contact_system" do
 
   it "should be able to count the contact list" do 
     expect(database.count).to eq(2)
+  end
+  
+  it "should be able to show all contacts" do 
+     expect(database.show).to eq("0 Emily, Zheng, 888888, White House\n"+
+                                "1 Kim, Strong, 111111, Dog House\n")
+
   end
 end 

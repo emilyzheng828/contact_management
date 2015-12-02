@@ -40,6 +40,12 @@ class Database
     end.join
   end
 
+  def show
+    @database.map.with_index do |each_person,index|
+      index.to_s + " " + each_person.join(", ") + "\n"
+    end.join
+  end
+
   def update
     updated_information = "666666"
     to_be_edited_index = 0
