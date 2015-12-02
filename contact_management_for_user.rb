@@ -5,7 +5,7 @@ class InterfaceUser
   def initialize 
     @database = Database.new
   end
-  
+
   def list_my_contacts
     # do something to print @database 
     print @database.list
@@ -21,7 +21,7 @@ class InterfaceUser
     puts "Enter address"
     address = gets.chomp
     a_person_new = Person.new(forename, surname,telephone,address)
-    @database << a_person_new
+    @database.add(a_person_new)
     print @database
   end
 
@@ -49,10 +49,10 @@ class InterfaceUser
     print @database.list
     contact_number = @database.count
     while contact_number > 0 do
-    puts "give me the number of contact you want to delete"
-    to_be_deleted_index = gets.chomp.to_i
-    @database.delete(to_be_deleted_index)
-    return @database.list
+      puts "give me the number of contact you want to delete"
+      to_be_deleted_index = gets.chomp.to_i
+      @database.delete(to_be_deleted_index)
+      return @database.list
     end
     puts "There is no more contacts to be deleted, please choose other options".red
   end
@@ -77,7 +77,7 @@ class InterfaceUser
         delete_a_contact
       end
       break if user_choice ==""
-    puts "Choose from A B C D again, please".green
+      puts "Choose from A B C D again, please".green
     end
   end
 end 

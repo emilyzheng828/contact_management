@@ -26,7 +26,7 @@ class Database
     @database[index] 
   end
 
-  def <<(a_new_person)
+  def add(a_new_person)
     @database << a_new_person.to_a
   end
 

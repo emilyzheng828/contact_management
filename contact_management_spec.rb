@@ -19,7 +19,8 @@ describe "Contact_system" do
   
   it "should be able to save a new contact into the database" do 
     a_new_person = Person.new("Ada","Wong","123456","Church")
-    database << a_new_person
+    database.add(a_new_person)
+
     expect(database[2]).to eq(["Ada","Wong","123456","Church"])
   end
 
