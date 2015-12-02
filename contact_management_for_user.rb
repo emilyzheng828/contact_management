@@ -29,6 +29,10 @@ class InterfaceUser
     puts "give me the number of contact you want to update"
     to_be_edited_index_input = gets.chomp
     to_be_edited_index = to_be_edited_index_input.to_i
+    if to_be_edited_index > @database.count-1 || to_be_edited_index < 0
+      puts "Please type in a number between 0 and #{@database.count-1}".red
+      return
+    end
     puts "what do you want to change? \n
     AA forename \n
     BB Surname \n
