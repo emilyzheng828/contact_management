@@ -20,9 +20,8 @@ class InterfaceUser
     telephone = gets.chomp
     puts "Enter address"
     address = gets.chomp
-    a_person_new = Person.new(forename, surname,telephone,address)
-    @database.add(a_person_new)
-    print @database
+      a_person_new = Person.new(forename, surname,telephone,address)
+      @database.add(a_person_new)
   end
 
   def edit_a_contact
@@ -40,9 +39,13 @@ class InterfaceUser
     update_contact_item_index = 1 if user_choice_of_item == "BB"
     update_contact_item_index = 2 if user_choice_of_item == "CC"
     update_contact_item_index = 3 if user_choice_of_item == "DD"
+    if update_contact_item_index == nil 
+      puts "Please type in AA BB CC or DD".red 
+      return
+    end
     puts "what do you want to change it to ?"
     update_information = gets.chomp
-    @database.update
+    @database.update(to_be_edited_index,update_contact_item_index,update_information)
   end
 
   def delete_a_contact

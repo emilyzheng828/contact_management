@@ -30,7 +30,7 @@ describe "Contact_system" do
   end
 
   it "should be able to edit a contact with given index number and element" do
-    expect(database.update).to eq(["Emily","Zheng","666666","White House"])
+    expect(database.update(0,2,"666666")).to eq(["Emily","Zheng","666666","White House"])
   end
 
   it "should be able to count the contact list" do 
@@ -40,6 +40,6 @@ describe "Contact_system" do
   it "should be able to show all contacts" do 
      expect(database.show).to eq("0 Emily, Zheng, 888888, White House\n"+
                                 "1 Kim, Strong, 111111, Dog House\n")
-
   end
+  
 end 
