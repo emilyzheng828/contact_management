@@ -25,23 +25,20 @@ class Database
   def <<(a_new_person)
     @database << a_new_person.to_a
   end
-
-  def join
-    a+b
-  end
  
   def delete(to_be_deleted_index)
      @database.delete_at(to_be_deleted_index.to_i)
   end
 
   def list
-    @database.map.with_index do |each_person,i|
-      i.to_s + " " + each_person.join(", ") + "\n"
+    @database.map.with_index do |each_person,index|
+      index.to_s + " " + each_person.join(", ") + "\n"
     end.join
   end
 
-  def update
+  def update(to_be_edited_index,updated_contact_item_index)
     @database[0][2] = "666666"
     @database[0]
+
   end
 end
