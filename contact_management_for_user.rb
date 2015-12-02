@@ -56,7 +56,7 @@ class InterfaceUser
     print @database.list
     contact_number = @database.count
     while contact_number > 0 do
-      puts "give me the number of contact you want to delete"
+      puts "Give me the number of contact you want to delete"
       to_be_deleted_index = gets.chomp.to_i
      if to_be_deleted_index > @database.count-1 || to_be_deleted_index < 0
       puts "Please type in a number between 0 and #{@database.count-1}".red
@@ -70,7 +70,7 @@ class InterfaceUser
 
   def show_all_contacts
     puts @database.list
-    puts "select a contact you want to check".green
+    puts "Select a contact you want to check".green
     selected_index = gets.chomp.to_i
     if selected_index > @database.count-1 || selected_index < 0
       puts "Please type in a number between 0 and #{@database.count-1}".red
