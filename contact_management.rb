@@ -36,7 +36,7 @@ class Database
 
   def list
     @database.map.with_index do |each_person,index|
-      index.to_s + " " + each_person.join(", ") + "\n"
+      index.to_s + " " + each_person[0..1].join(", ") + "\n"
     end.join
   end
 
