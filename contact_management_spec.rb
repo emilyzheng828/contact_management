@@ -38,8 +38,7 @@ describe "Contact_system" do
   end
   
   it "should be able to show all contacts" do 
-     expect(database.show).to eq("0 Emily, Zheng, 888888, White House\n"+
-                                "1 Kim, Strong, 111111, Dog House\n")
+     expect(database.show(0)).to eq(["Emily", "Zheng", "888888","White House"])
   end
   
 end 

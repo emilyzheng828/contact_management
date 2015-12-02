@@ -12,13 +12,13 @@ class InterfaceUser
   end
 
   def add_new_contact
-    puts "Enter new contact forename".red
+    puts "Enter new contact forename".green
     forename = gets.chomp 
-    puts "Enter surname".red
+    puts "Enter surname".green
     surname = gets.chomp
-    puts "Enter phone number"
+    puts "Enter phone number".green
     telephone = gets.chomp
-    puts "Enter address"
+    puts "Enter address".green
     address = gets.chomp
       a_person_new = Person.new(forename, surname,telephone,address)
       @database.add(a_person_new)
@@ -58,6 +58,10 @@ class InterfaceUser
     while contact_number > 0 do
       puts "give me the number of contact you want to delete"
       to_be_deleted_index = gets.chomp.to_i
+     if to_be_deleted_index > @database.count-1 || to_be_deleted_index < 0
+      puts "Please type in a number between 0 and #{@database.count-1}".red
+      return
+    end 
       @database.delete(to_be_deleted_index)
       return @database.list
     end
@@ -65,7 +69,14 @@ class InterfaceUser
   end
 
   def show_all_contacts
-    print "Forename, Surname, Telephone, Address".blue + "\n" + @database.show
+    puts @database.list
+    puts "select a contact you want to check".green
+    selected_index = gets.chomp.to_i
+    if selected_index > @database.count-1 || selected_index < 0
+      puts "Please type in a number between 0 and #{@database.count-1}".red
+      return
+    end 
+    print "Forename, Surname, Telephone, Address".blue + "\n" + @database.show(selected_index).to_s+"\n"
   end
 
   def run
@@ -73,7 +84,7 @@ class InterfaceUser
     puts "B. Create new contact".green
     puts "C. Edit a contact".green
     puts "D. Delete a contact".green
-    puts "E. Show all contacts".green
+    puts "E. Show selected contact".green
     while true 
       user_choice = gets.chomp
       if user_choice == "A"
@@ -92,7 +103,7 @@ class InterfaceUser
         show_all_contacts
       end
       break if user_choice ==""
-      puts "Choose from A B C D again, please".green
+      puts "Choose from A B C D E again, please".green
     end
   end
 end 
