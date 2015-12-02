@@ -58,7 +58,7 @@ class InterfaceUser
   end
 
   def show_all_contacts
-    print "Forename, Surname, Telephone, Address" + "\n" + @database.show
+    print "Forename, Surname, Telephone, Address".blue + "\n" + @database.show
   end
 
   def run
