@@ -36,12 +36,10 @@ class InterfaceUser
     CC Telephone \n
     DD Address".green
     user_choice_of_item = gets.chomp
-     
     update_contact_item_index = 0 if user_choice_of_item == "AA"
     update_contact_item_index = 1 if user_choice_of_item == "BB"
     update_contact_item_index = 2 if user_choice_of_item == "CC"
     update_contact_item_index = 3 if user_choice_of_item == "DD"
-    
     puts "what do you want to change it to ?"
     update_information = gets.chomp
     @database[to_be_edited_index][update_contact_item_index] = update_information.to_s
@@ -49,13 +47,14 @@ class InterfaceUser
 
   def delete_a_contact
     print @database.list
-    if @database.count > 0
+    contact_number = @database.count
+    while contact_number > 0 do
     puts "give me the number of contact you want to delete"
     to_be_deleted_index = gets.chomp.to_i
     @database.delete(to_be_deleted_index)
     return @database.list
-    else puts "there in nothing in the list right now".red
     end
+    puts "There is no more contacts to be deleted, please choose other options".red
   end
 
   def run
@@ -78,6 +77,7 @@ class InterfaceUser
         delete_a_contact
       end
       break if user_choice ==""
+    puts "Choose from A B C D again, please".green
     end
   end
 end 

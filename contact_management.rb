@@ -36,9 +36,12 @@ class Database
     end.join
   end
 
-  def update(to_be_edited_index,updated_contact_item_index)
+  def update
     @database[0][2] = "666666"
     @database[0]
-
+  end
+  
+  def count
+    @database.size
   end
 end
