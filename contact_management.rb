@@ -37,8 +37,11 @@ class Database
   end
 
   def update
-    @database[0][2] = "666666"
-    @database[0]
+    updated_information = "666666"
+    to_be_edited_index = 0
+    update_contact_item_index = 2
+   @database[to_be_edited_index][update_contact_item_index] = updated_information
+   @database[to_be_edited_index]
   end
   
   def count

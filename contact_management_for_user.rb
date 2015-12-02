@@ -42,7 +42,7 @@ class InterfaceUser
     update_contact_item_index = 3 if user_choice_of_item == "DD"
     puts "what do you want to change it to ?"
     update_information = gets.chomp
-    @database[to_be_edited_index][update_contact_item_index] = update_information.to_s
+    @database.update
   end
 
   def delete_a_contact
