@@ -36,12 +36,12 @@ class Database
 
   def list
     @database.map.with_index do |each_person,index|
-      index.to_s + " " + each_person[0..1].join(", ") + "\n"
+      index.to_s + " " + each_person[0..1].join(" ") + "\n"
     end.join
   end
 
   def show(selected_index)
-    @database[selected_index]
+    @database[selected_index].join(" ")
   end
 
   def update(to_be_edited_index,update_contact_item_index,update_information)

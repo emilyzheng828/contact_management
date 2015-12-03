@@ -27,7 +27,13 @@ class InterfaceUser
     print @database.list
     puts "give me the number of contact you want to update"
     to_be_edited_index_input = gets.chomp
+    unless to_be_edited_index_input.to_i.to_s != to_be_edited_index_input
     to_be_edited_index = to_be_edited_index_input.to_i
+    else 
+      puts "please choose a valid Number only!".red
+      puts "If you still want to edit it, choose C again.".green
+      return
+    end
     if to_be_edited_index > @database.count-1 || to_be_edited_index < 0
       puts "Please type in a number between 0 and #{@database.count-1}".red
       return
@@ -55,12 +61,12 @@ class InterfaceUser
     print @database.list
     contact_number = @database.count
     while contact_number > 0 do
-      puts "Give me the number of contact you want to delete"
+      puts "give me the number of contact you want to delete"
       to_be_deleted_index = gets.chomp.to_i
-     if to_be_deleted_index > @database.count-1 || to_be_deleted_index < 0
-      puts "Please type in a number between 0 and #{@database.count-1}".red
-      return
-    end 
+      if to_be_deleted_index > @database.count-1 || to_be_deleted_index < 0
+        puts "Please type in a number between 0 and #{@database.count-1}".red
+        return
+      end 
       @database.delete(to_be_deleted_index)
       return @database.list
     end
@@ -75,7 +81,7 @@ class InterfaceUser
       puts "Please type in a number between 0 and #{@database.count-1}".red
       return
     end 
-    print "Forename, Surname, Telephone, Address".blue + "\n" + @database.show(selected_index).to_s+"\n"
+    print "Forename, Surname, Telephone, Address".yellow + "\n" + @database.show(selected_index).to_s+"\n"
   end
 
   def run
