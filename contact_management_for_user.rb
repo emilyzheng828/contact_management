@@ -119,6 +119,7 @@ class InterfaceUser
     while true 
       user_choice = gets.chomp
 
+      puts "\e[H\e[2J"
       if user_choice == "A"
         list_my_contacts
       end  
