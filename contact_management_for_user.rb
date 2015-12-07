@@ -5,93 +5,120 @@ class InterfaceUser
   def initialize 
     @database = Database.new
   end
-
-  def list_my_contacts
-    print @database.list
-  end
-
-  def add_new_contact
-    puts "Enter new contact forename".green
-    forename = gets.chomp 
-    puts "Enter surname".green
-    surname = gets.chomp
-    puts "Enter phone number".green
-    telephone = gets.chomp
-    puts "Enter address".green
-    address = gets.chomp
-      a_person_new = Person.new(forename, surname,telephone,address)
-      @database.add(a_person_new)
-  end
-
-  def edit_a_contact
-    print @database.list
-    puts "give me the number of contact you want to update"
-    to_be_edited_index_input = gets.chomp
-    unless to_be_edited_index_input.to_i.to_s != to_be_edited_index_input
-    to_be_edited_index = to_be_edited_index_input.to_i
-    else 
-      puts "please choose a valid Number only!".red
-      puts "If you still want to edit it, choose C again.".green
-      return
-    end
-    if to_be_edited_index > @database.count-1 || to_be_edited_index < 0
-      puts "Please type in a number between 0 and #{@database.count-1}".red
-      return
-    end
-    puts "what do you want to change? \n
-    AA forename \n
-    BB Surname \n
-    CC Telephone \n
-    DD Address".green
-    user_choice_of_item = gets.chomp
-    update_contact_item_index = 0 if user_choice_of_item == "AA"
-    update_contact_item_index = 1 if user_choice_of_item == "BB"
-    update_contact_item_index = 2 if user_choice_of_item == "CC"
-    update_contact_item_index = 3 if user_choice_of_item == "DD"
-    if update_contact_item_index == nil 
-      puts "Please type in AA BB CC or DD".red 
-      return
-    end
-    puts "what do you want to change it to ?"
-    update_information = gets.chomp
-    @database.update(to_be_edited_index,update_contact_item_index,update_information)
-  end
-
-  def delete_a_contact
-    print @database.list
-    contact_number = @database.count
-    while contact_number > 0 do
-      puts "give me the number of contact you want to delete"
-      to_be_deleted_index = gets.chomp.to_i
-      if to_be_deleted_index > @database.count-1 || to_be_deleted_index < 0
-        puts "Please type in a number between 0 and #{@database.count-1}".red
-        return
-      end 
-      @database.delete(to_be_deleted_index)
-      return @database.list
-    end
-    puts "There is no more contacts to be deleted, please choose other options".red
-  end
-
-  def show_all_contacts
-    puts @database.list
-    puts "Select a contact you want to check".green
-    selected_index = gets.chomp.to_i
-    if selected_index > @database.count-1 || selected_index < 0
-      puts "Please type in a number between 0 and #{@database.count-1}".red
-      return
-    end 
-    print "Forename, Surname, Telephone, Address".yellow + "\n" + @database.show(selected_index).to_s+"\n"
-  end
-
-  def run
+  
+  def menu
+    puts "------------------------".blue
     puts "A. List my contact".green
     puts "B. Create new contact".green
     puts "C. Edit a contact".green
     puts "D. Delete a contact".green
     puts "E. Show selected contact".green
+    puts "------------------------".blue
+  end
+
+  def list_my_contacts
+    print @database.list
+  end
+
+  def getting_full_details_from_user
+    puts "Enter new contact forename".green
+    @forename = gets.chomp 
+    puts "Enter surname".green
+    @surname = gets.chomp
+    puts "Enter phone number".green
+    @telephone = gets.chomp
+    puts "Enter address".green
+    @address = gets.chomp
+  end
+
+  def add_new_contact
+    getting_full_details_from_user
+    a_person_new = Person.new(@forename, @surname, @telephone, @address)
+    @database.add(a_person_new)
+  end
+
+  def ask_user_what_to_be_changed
+    puts "what do you want to change? \n
+    AA forename \n
+    BB Surname \n
+    CC Telephone \n
+    DD Address".green
+  end
+  
+  def choice_of_update_item
+    update_contact_item_index = nil
+    until (0..3).include?(update_contact_item_index)
+      user_choice_of_item = gets.chomp
+      update_contact_item_index = 0 if user_choice_of_item == "AA"
+      update_contact_item_index = 1 if user_choice_of_item == "BB"
+      update_contact_item_index = 2 if user_choice_of_item == "CC"
+      update_contact_item_index = 3 if user_choice_of_item == "DD"
+      if update_contact_item_index == nil 
+        puts "Please type in AA BB CC or DD".red 
+        return
+      end
+      return update_contact_item_index
+    end
+  end
+  
+  def user_number_valid?(user_input)
+    if user_input.to_i.to_s == user_input
+      user_input = user_input.to_i
+      user_input >= 0 && user_input < @database.count
+    else 
+      false
+    end
+  end
+
+  def edit_a_contact
+    print @database.list
+    puts "Give me the number of contact you want to update".green
+    to_be_edited_index_input = gets.chomp
+    
+    if user_number_valid?(to_be_edited_index_input)
+      ask_user_what_to_be_changed
+      update_contact_item_index = choice_of_update_item
+      puts "what do you want to change it to ?"
+      update_information = gets.chomp
+      @database.update(to_be_edited_index_input.to_i, update_contact_item_index, update_information)
+    else
+      puts "Please type in a number between 0 and #{@database.count-1}".red
+    end
+  end
+
+  def delete_a_contact
+    print @database.list
+    contact_number = @database.count
+    if contact_number == 0 
+      puts "There is no more contacts to be deleted, please choose other options".red
+    end
+    puts "give me the number of contact you want to delete"
+    to_be_deleted_index = gets.chomp
+    if user_number_valid?(to_be_deleted_index)
+      to_be_deleted_index.to_i
+      @database.delete(to_be_deleted_index)
+      return @database.list
+    else
+      puts "Please type in a number between 0 and #{@database.count-1}".red
+    end
+  end
+
+  def show_selected_contact
+    puts @database.list
+    puts "Select a contact you want to check".green
+    selected_index = gets.chomp
+    if user_number_valid?(selected_index)
+      print "Forename, Surname, Telephone, Address".yellow + "\n" +"-------------------------------------"+"\n"+ @database.show(selected_index.to_i).to_s+"\n"+"-------------------------------------"+"\n"
+    else
+      puts "Please type in a number between 0 and #{@database.count-1}".red
+    end
+  end
+
+  def run
+    menu
     while true 
       user_choice = gets.chomp
+
       if user_choice == "A"
         list_my_contacts
       end  
@@ -105,10 +132,11 @@ class InterfaceUser
         delete_a_contact
       end
       if user_choice == "E"
-        show_all_contacts
+        show_selected_contact
       end
       break if user_choice ==""
       puts "Choose from A B C D E again, please".green
+      menu
     end
   end
 end 

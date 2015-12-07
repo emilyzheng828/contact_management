@@ -44,7 +44,7 @@ class Database
     @database[selected_index].join(" ")
   end
 
-  def update(to_be_edited_index,update_contact_item_index,update_information)
+  def update(to_be_edited_index, update_contact_item_index, update_information)
     @database[to_be_edited_index][update_contact_item_index] = update_information
     @database[to_be_edited_index]
   end
