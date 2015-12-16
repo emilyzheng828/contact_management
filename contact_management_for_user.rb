@@ -38,24 +38,24 @@ class InterfaceUser
   end
 
   def ask_user_what_to_be_changed
-    puts "what do you want to change? \n
-    AA forename \n
-    BB Surname \n
-    CC Telephone \n
+    puts "what do you want to change? 
+    AA forename 
+    BB Surname 
+    CC Telephone 
     DD Address".green
   end
   
   def choice_of_update_item
     update_contact_item_index = nil
     until (0..3).include?(update_contact_item_index)
-      user_choice_of_item = gets.chomp
+      user_choice_of_item = gets.chomp.upcase
       update_contact_item_index = 0 if user_choice_of_item == "AA"
       update_contact_item_index = 1 if user_choice_of_item == "BB"
       update_contact_item_index = 2 if user_choice_of_item == "CC"
       update_contact_item_index = 3 if user_choice_of_item == "DD"
       if update_contact_item_index == nil 
         puts "Please type in AA BB CC or DD".red 
-        return
+        next
       end
       return update_contact_item_index
     end
