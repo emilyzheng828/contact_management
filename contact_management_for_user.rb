@@ -117,26 +117,22 @@ class InterfaceUser
   def run
     menu
     while true 
-      user_choice = gets.chomp
-
+      user_choice = gets.chomp.upcase
       puts "\e[H\e[2J"
-      if user_choice == "A"
+      case user_choice
+      when "A"
         list_my_contacts
-      end  
-      if user_choice == "B"
+      when "B"
         add_new_contact
-      end
-      if user_choice == "C"
+      when "C"
         edit_a_contact
-      end
-      if user_choice == "D"
+      when "D"
         delete_a_contact
-      end
-      if user_choice == "E"
+      when "E"
         show_selected_contact
       end
       break if user_choice ==""
-      puts "Choose from A B C D E again, please".green
+      puts "Choose from A B C D E again, please".red
       menu
     end
   end
