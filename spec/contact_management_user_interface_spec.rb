@@ -10,6 +10,7 @@ class FakeStdOut < InterfaceUser
   end
 
   def puts(message)
+   output.puts message
   end
 
   def tty?
