@@ -2,6 +2,7 @@ require_relative "contact_management"
 require "colorize"
 
 class InterfaceUser
+  attr_reader :database
   def initialize 
     @database = Database.new
   end
@@ -22,33 +23,33 @@ class InterfaceUser
 
   def getting_full_details_from_user
     puts "Enter new contact forename".green
-    @forename = gets.chomp 
+    @forename = $stdin.gets.chomp 
     puts "Enter surname".green
-    @surname = gets.chomp
+    @surname = $stdin.gets.chomp
     puts "Enter phone number".green
-    @telephone = gets.chomp
+    @telephone = $stdin.gets.chomp
     puts "Enter address".green
-    @address = gets.chomp
+    @address = $stdin.gets.chomp
   end
 
-  def add_new_contact
+  def create_new_contact
     getting_full_details_from_user
     a_person_new = Person.new(@forename, @surname, @telephone, @address)
     @database.add(a_person_new)
   end
 
   def ask_user_what_to_be_changed
-    puts "what do you want to change? 
-    AA forename 
-    BB Surname 
-    CC Telephone 
-    DD Address".green
+    puts "what do you want to change?".green 
+    puts "AA forename".green 
+    puts "BB Surname".green 
+    puts "CC Telephone".green 
+    puts "DD Address".green
   end
   
   def choice_of_update_item
     update_contact_item_index = nil
     until (0..3).include?(update_contact_item_index)
-      user_choice_of_item = gets.chomp.upcase
+      user_choice_of_item = $stdin.gets.chomp.upcase
       update_contact_item_index = 0 if user_choice_of_item == "AA"
       update_contact_item_index = 1 if user_choice_of_item == "BB"
       update_contact_item_index = 2 if user_choice_of_item == "CC"
@@ -73,40 +74,48 @@ class InterfaceUser
   def edit_a_contact
     print @database.list
     puts "Give me the number of contact you want to update".green
-    to_be_edited_index_input = gets.chomp
+    while true
+      to_be_edited_index_input = $stdin.gets.chomp
+      if user_number_valid?(to_be_edited_index_input)
+        ask_user_what_to_be_changed
+        update_contact_item_index = choice_of_update_item
+        puts "what do you want to change it to ?"
+        update_information = $stdin.gets.chomp
+        @database.update(to_be_edited_index_input.to_i, update_contact_item_index, update_information)
+        break
+      else
+        puts "Please type in a number between 0 and #{@database.count-1}".red
+      end
     
-    if user_number_valid?(to_be_edited_index_input)
-      ask_user_what_to_be_changed
-      update_contact_item_index = choice_of_update_item
-      puts "what do you want to change it to ?"
-      update_information = gets.chomp
-      @database.update(to_be_edited_index_input.to_i, update_contact_item_index, update_information)
-    else
-      puts "Please type in a number between 0 and #{@database.count-1}".red
     end
   end
 
   def delete_a_contact
     print @database.list
+   
     contact_number = @database.count
     if contact_number == 0 
       puts "There is no more contacts to be deleted, please choose other options".red
+      return
     end
+
     puts "give me the number of contact you want to delete"
-    to_be_deleted_index = gets.chomp
-    if user_number_valid?(to_be_deleted_index)
-      to_be_deleted_index.to_i
-      @database.delete(to_be_deleted_index)
-      return @database.list
-    else
-      puts "Please type in a number between 0 and #{@database.count-1}".red
+    while true
+      to_be_deleted_index = $stdin.gets.chomp
+      if user_number_valid?(to_be_deleted_index)
+        to_be_deleted_index.to_i
+        @database.delete(to_be_deleted_index)
+        return @database.list
+      else
+        puts "Please type in a number between 0 and #{@database.count-1}".red
+      end
     end
   end
 
   def show_selected_contact
     puts @database.list
     puts "Select a contact you want to check".green
-    selected_index = gets.chomp
+    selected_index = $stdin.gets.chomp
     if user_number_valid?(selected_index)
       print "Forename, Surname, Telephone, Address".yellow + "\n" +"-------------------------------------"+"\n"+ @database.show(selected_index.to_i).to_s+"\n"+"-------------------------------------"+"\n"
     else
@@ -117,13 +126,13 @@ class InterfaceUser
   def run
     menu
     while true 
-      user_choice = gets.chomp.upcase
+      user_choice = $stdin.gets.chomp.upcase
       puts "\e[H\e[2J"
       case user_choice
       when "A"
         list_my_contacts
       when "B"
-        add_new_contact
+        create_new_contact
       when "C"
         edit_a_contact
       when "D"
@@ -138,5 +147,7 @@ class InterfaceUser
   end
 end 
 
-user_action = InterfaceUser.new 
-user_action.run 
+if $0 == __FILE__
+  user_action = InterfaceUser.new 
+  user_action.run
+end
