@@ -1,4 +1,5 @@
-require_relative "contact_management"
+require_relative "database"
+require_relative "person"
 require "colorize"
 
 class InterfaceUser

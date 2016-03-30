@@ -1,25 +1,13 @@
-class Person
-  attr_accessor :forename, :surname, :telephone, :address 
-  
-  def initialize(forename, surname, telephone, address)
-    @forename = forename
-    @surname = surname
-    @telephone = telephone
-    @address = address
-  end
-
-  def to_a
-    [forename, surname, telephone, address]
-  end
-
-end
+require 'pstore'
 
 class Database
+  
 
   def initialize 
     @database = []
-    @database[0] = ["Emily","Zheng","888888","White House"] 
-    @database[1] = ["Kim","Strong","111111","Dog House"]
+    File.open("database.csv", mode = "rt").each do |line|
+       @database << line.gsub("\n","").split(",")
+    end
   end
 
   def [](index)
@@ -53,4 +41,7 @@ class Database
     @database.size
   end
 
+  def get(number)
+    @database[number].to_h
+  end
 end
