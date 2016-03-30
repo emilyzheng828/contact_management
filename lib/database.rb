@@ -5,9 +5,13 @@ class Database
   def initialize(file_name)
     @file_name = file_name
     @database = []
-    File.open(file_name, mode = "rt").each do |line|
+    load_file(file_name).each do |line|
        @database << line.gsub("\n","").split(",")
     end
+  end
+
+  def load_file(file_name)
+    File.open(file_name, mode = "rt")
   end
 
   def [](index)

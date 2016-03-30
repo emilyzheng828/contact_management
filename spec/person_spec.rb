@@ -32,6 +32,7 @@ describe "Contact_system" do
      database.add(a_new_person)
      database.save!
 
+     # TODO: use Ruby to check the length of file, not Unix
      expect(`wc -l "test_database.csv"`.strip.split(' ')[0].to_i).to eq(3) 
      database.delete(2)
      database.save!
