@@ -3,7 +3,7 @@ $: << File.expand_path(File.join(File.dirname(__FILE__),"..","lib"))
 require 'database'
 
 describe "Contact_system" do
-  let(:database) { Database.new }
+  let(:database) { Database.new("test_database.csv") }
   
   it "should be able to save a new contact into the database" do 
     new_person = { name: "Ada", surname:"Wong", phone:"123", address:"church" } 
@@ -27,5 +27,7 @@ describe "Contact_system" do
   it "should be able to show all contacts" do 
      expect(database.show(0)).to eq("Emily Zheng 888888 White House")
   end
+
+
   
 end 

@@ -5,7 +5,7 @@ require "colorize"
 class InterfaceUser
   attr_reader :database
   def initialize 
-    @database = Database.new
+    @database = Database.new("database.csv")
   end
   
   def menu

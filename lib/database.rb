@@ -3,9 +3,9 @@ require 'pstore'
 class Database
   
 
-  def initialize 
+  def initialize(file_name)
     @database = []
-    File.open("database.csv", mode = "rt").each do |line|
+    File.open(file_name, mode = "rt").each do |line|
        @database << line.gsub("\n","").split(",")
     end
   end
