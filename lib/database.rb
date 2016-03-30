@@ -1,9 +1,9 @@
 require 'pstore'
 
 class Database
-  
 
   def initialize(file_name)
+    @file_name = file_name
     @database = []
     File.open(file_name, mode = "rt").each do |line|
        @database << line.gsub("\n","").split(",")
@@ -43,5 +43,13 @@ class Database
 
   def get(number)
     @database[number].to_h
+  end
+
+  def save!
+    open(@file_name, "w") do |f|
+      @database.each do |person|
+        f.puts person.join(",")
+      end
+    end
   end
 end

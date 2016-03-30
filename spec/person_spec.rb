@@ -24,11 +24,17 @@ describe "Contact_system" do
      database.add(a_new_person)
 
      expect(database[2]).to eq(["Ada","Wong","123456","Church"])
+     
    end
 
    it "should be able to save contacts into the file" do
      a_new_person = Person.new("Ada","Wong","123456","Church")
+     database.add(a_new_person)
+     database.save!
 
+     expect(`wc -l "test_database.csv"`.strip.split(' ')[0].to_i).to eq(3) 
+     database.delete(2)
+     database.save!
    end
 
    it "should be able to show a LIST of full names only with index number" do
