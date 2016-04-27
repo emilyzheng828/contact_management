@@ -77,17 +77,16 @@ class InterfaceUser
     puts "Give me the number of contact you want to update".green
     while true
       to_be_edited_index_input = get_input
-      if user_number_valid?(to_be_edited_index_input)
+      unless user_number_valid?(to_be_edited_index_input)
+        puts "Please type in a number between 0 and #{@database.count-1}".red
+        next
+      end
         ask_user_what_to_be_changed
         update_contact_item_index = choice_of_update_item
         puts "what do you want to change it to ?"
         update_information = get_input
         @database.update(to_be_edited_index_input.to_i, update_contact_item_index, update_information)
         break
-      else
-        puts "Please type in a number between 0 and #{@database.count-1}".red
-      end
-    
     end
   end
 
