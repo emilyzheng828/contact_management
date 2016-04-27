@@ -24,13 +24,13 @@ class InterfaceUser
 
   def getting_full_details_from_user
     puts "Enter new contact forename".green
-    @forename = $stdin.gets.chomp 
+    @forename = get_input 
     puts "Enter surname".green
-    @surname = $stdin.gets.chomp
+    @surname = get_input
     puts "Enter phone number".green
-    @telephone = $stdin.gets.chomp
+    @telephone = get_input
     puts "Enter address".green
-    @address = $stdin.gets.chomp
+    @address = get_input
   end
 
   def create_new_contact
@@ -50,7 +50,7 @@ class InterfaceUser
   def choice_of_update_item
     update_contact_item_index = nil
     until (0..3).include?(update_contact_item_index)
-      user_choice_of_item = $stdin.gets.chomp.upcase
+      user_choice_of_item = get_input.upcase
       update_contact_item_index = 0 if user_choice_of_item == "AA"
       update_contact_item_index = 1 if user_choice_of_item == "BB"
       update_contact_item_index = 2 if user_choice_of_item == "CC"
@@ -76,12 +76,12 @@ class InterfaceUser
     print @database.list
     puts "Give me the number of contact you want to update".green
     while true
-      to_be_edited_index_input = $stdin.gets.chomp
+      to_be_edited_index_input = get_input
       if user_number_valid?(to_be_edited_index_input)
         ask_user_what_to_be_changed
         update_contact_item_index = choice_of_update_item
         puts "what do you want to change it to ?"
-        update_information = $stdin.gets.chomp
+        update_information = get_input
         @database.update(to_be_edited_index_input.to_i, update_contact_item_index, update_information)
         break
       else
@@ -102,7 +102,7 @@ class InterfaceUser
 
     puts "give me the number of contact you want to delete"
     while true
-      to_be_deleted_index = $stdin.gets.chomp
+      to_be_deleted_index = get_input
       if user_number_valid?(to_be_deleted_index)
         to_be_deleted_index.to_i
         @database.delete(to_be_deleted_index)
@@ -116,7 +116,7 @@ class InterfaceUser
   def show_selected_contact
     puts @database.list
     puts "Select a contact you want to check".green
-    selected_index = $stdin.gets.chomp
+    selected_index = get_input
     if user_number_valid?(selected_index)
       print "Forename, Surname, Telephone, Address".yellow + "\n" +"-------------------------------------"+"\n"+ @database.show(selected_index.to_i).to_s+"\n"+"-------------------------------------"+"\n"
     else
@@ -127,9 +127,7 @@ class InterfaceUser
   def run
     menu
     while true 
-      user_choice = $stdin.gets
-      break if user_choice.nil?
-      user_choice = user_choice.chomp.upcase
+      user_choice = get_input.upcase
       puts "\e[H\e[2J"
       case user_choice
       when "A"
@@ -149,6 +147,12 @@ class InterfaceUser
     end
     @database.save!
     puts "Database saved".yellow
+  end
+  private 
+  def get_input
+      input = $stdin.gets
+      return "" if input.nil?
+      input.chomp
   end
 end 
 
