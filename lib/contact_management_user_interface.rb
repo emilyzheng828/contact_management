@@ -127,7 +127,9 @@ class InterfaceUser
   def run
     menu
     while true 
-      user_choice = $stdin.gets.chomp.upcase
+      user_choice = $stdin.gets
+      break if user_choice.nil?
+      user_choice = user_choice.chomp.upcase
       puts "\e[H\e[2J"
       case user_choice
       when "A"
@@ -145,6 +147,8 @@ class InterfaceUser
       puts "Choose from A B C D E again, please".red
       menu
     end
+    @database.save!
+    puts "Database saved".yellow
   end
 end 
 
