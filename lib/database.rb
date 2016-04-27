@@ -1,17 +1,11 @@
 require 'pstore'
+require 'csv'
 
 class Database
 
   def initialize(file_name)
     @file_name = file_name
-    @database = []
-    load_file(file_name).each do |line|
-       @database << line.gsub("\n","").split(",")
-    end
-  end
-
-  def load_file(file_name)
-    File.open(file_name, mode = "rt")
+    @database = CSV.read(file_name)
   end
 
   def [](index)
@@ -50,9 +44,9 @@ class Database
   end
 
   def save!
-    open(@file_name, "w") do |f|
+    CSV.open(@file_name, "w") do |f|
       @database.each do |person|
-        f.puts person.join(",")
+        f << person
       end
     end
   end
